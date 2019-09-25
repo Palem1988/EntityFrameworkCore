@@ -2206,6 +2206,30 @@ namespace Microsoft.EntityFrameworkCore.Diagnostics
                 GetString("ClashingNonOwnedDerivedEntityType", nameof(entityType), nameof(derivedType)),
                 entityType, derivedType);
 
+        /// <summary>
+        ///     Client projection contains reference to constant expression of '{constantType}' which is being passed as argument to method '{methodName}'. This could potentially cause memory leak. See https://go.microsoft.com/fwlink/?linkid=2103067 for more information.
+        /// </summary>
+        public static string ClientProjectionCapturingConstantInMethodArgument([CanBeNull] object constantType, [CanBeNull] object methodName)
+            => string.Format(
+                GetString("ClientProjectionCapturingConstantInMethodArgument", nameof(constantType), nameof(methodName)),
+                constantType, methodName);
+
+        /// <summary>
+        ///     Client projection contains reference to constant expression of '{constantType}' through instance method '{methodName}'. This could potentially cause memory leak. If the instance is not being used inside method then consider making the method static. See https://go.microsoft.com/fwlink/?linkid=2103067 for more information.
+        /// </summary>
+        public static string ClientProjectionCapturingConstantInMethodInstance([CanBeNull] object constantType, [CanBeNull] object methodName)
+            => string.Format(
+                GetString("ClientProjectionCapturingConstantInMethodInstance", nameof(constantType), nameof(methodName)),
+                constantType, methodName);
+
+        /// <summary>
+        ///     Client projection contains reference to constant expression of '{constantType}'. This could potentially cause memory leak. See https://go.microsoft.com/fwlink/?linkid=2103067 for more information.
+        /// </summary>
+        public static string ClientProjectionCapturingConstantInTree([CanBeNull] object constantType)
+            => string.Format(
+                GetString("ClientProjectionCapturingConstantInTree", nameof(constantType)),
+                constantType);
+
         private static string GetString(string name, params string[] formatterNames)
         {
             var value = _resourceManager.GetString(name);
